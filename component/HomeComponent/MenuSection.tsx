@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
+import Lenis from 'lenis'
 gsap.registerPlugin(ScrollTrigger)
 
 const diverseCuisineDishes = [
@@ -31,17 +31,20 @@ const dishes = [
   {
     name: 'Garden\'s Gift',
     description: 'Heirloom vegetables with charred broccolini and herb emulsion',
-    price: '$32',
+    image:'/assets/sig1.jpg',
+    price: '₹ 99',
   },
   {
     name: 'Delicate Balance',
     description: 'Pan-seared halibut with champagne foam and caviar pearls',
-    price: '$48',
+    image:'/assets/sig2.jpg',
+        price: '₹ 99',
   },
   {
     name: 'Chef\'s Curiosity',
     description: 'Seasonal selection inspired by global culinary traditions',
-    price: '$55',
+    image:'/assets/sig3.jpg',
+    price: '₹ 69',
   },
 ]
 
@@ -49,28 +52,64 @@ export function MenuSection() {
   const ref = useRef(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
+const plateRef = useRef<HTMLImageElement>(null)
+useEffect(() => {
+  if (!containerRef.current) return
 
-  useEffect(() => {
-    if (!containerRef.current) return
+  const lenis = new Lenis({
+    autoRaf: true,
+    smoothWheel: true,
+    lerp: 0.07, // light, premium smooth
+  })
 
-    const ctx = gsap.context(() => {
-      gsap.to('.diverse-dish-image', {
-        rotation: 250,
-        scrollTrigger: {
-          trigger: '.diverse-dish-image',
-          start: 'top middle',
-          end: 'bottom bottom',
-          scrub: true,
-          // markers: true,
+  // CONNECT Lenis → ScrollTrigger
+  lenis.on("scroll", ScrollTrigger.update)
 
-        },
-        ease: 'none',
-      })
-    }, containerRef)
+  ScrollTrigger.scrollerProxy(document.body, {
+    scrollTop(value) {
+      if (arguments.length) {
+        // 🚫 DO NOT use immediate: true
+        if (typeof value === 'number') {
+          lenis.scrollTo(value)
+        }
+      } else {
+        return lenis.scroll
+      }
+    },
+    getBoundingClientRect() {
+      return {
+        top: 0,
+        left: 0,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      }
+    },
+  })
 
-    return () => ctx.revert()
-  }, [])
+  ScrollTrigger.refresh()
 
+  const ctx = gsap.context(() => {
+    gsap.to(".diverse-dish-image", {
+      rotation: 50,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".diverse-dish-image",
+        start: "top bottom",
+        end: "top top",
+
+        // ✅ THIS is the magic
+        scrub: 7, // smooth catch-up after fast scroll
+
+  
+      },
+    })
+  }, containerRef)
+
+  return () => {
+    ctx.revert()
+    lenis.destroy()
+  }
+}, [])
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -121,15 +160,15 @@ export function MenuSection() {
                 key={index}
                 variants={itemVariants}
                 whileHover={{ y: -8 }}
-                className="group relative text-center"
+                className="group relative text-center flex flex-col items-center"
               >
-                <div className="mb-6 overflow-hidden rounded-lg relative">
+                <div className="mb-6 overflow-hidden rounded-lg relative w-full max-w-xs h-78 sm:h-96 md:h-84 flex items-center justify-center">
                   <Image
                     src={dish.image}
                     alt={dish.name}
-                    width={300}
-                    height={300}
-                    className="diverse-dish-image w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                    width={200}
+                    height={200}
+                    className="diverse-dish-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <h3 className="text-2xl font-serif font-semibold text-white mb-2">
@@ -178,13 +217,14 @@ export function MenuSection() {
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 <div className="relative z-10">
-                  {/* Image Placeholder */}
-                  <div className="h-48 bg-gradient-to-br from-accent/10 to-accent/5 rounded-lg mb-6 overflow-hidden">
-                    <motion.div
-                      initial={{ scale: 1.1 }}
-                      whileHover={{ scale: 1 }}
-                      transition={{ duration: 0.4 }}
-                      className="w-full h-full bg-gradient-to-tr from-black via-accent/10 to-transparent"
+                  {/* Dish Image */}
+                  <div className="h-40 sm:h-48 md:h-56 rounded-lg mb-6 overflow-hidden relative">
+                    <Image
+                      src={dish.image}
+                      alt={dish.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
 

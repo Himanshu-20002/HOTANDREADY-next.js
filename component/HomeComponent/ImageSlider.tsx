@@ -45,7 +45,7 @@ export function ImageSlider({ images, interval = 2000 }: ImageSliderProps) {
             src={images[currentIndex]}
             alt={`Slide ${currentIndex + 1}`}
             fill
-            className="object-contain"
+            className="object-cover w-full h-full"
             priority
           />
         </motion.div>
@@ -74,8 +74,8 @@ export function ImageSlider({ images, interval = 2000 }: ImageSliderProps) {
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
-            className={`w-3 h-3 rounded-full transition ${
-              idx === currentIndex ? 'bg-accent' : 'bg-white/30 hover:bg-white/50'
+            className={`h-2 rounded-full transition ${
+              idx === currentIndex ? 'w-8 bg-accent' : 'w-2 bg-accent/30 hover:bg-accent/50'
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

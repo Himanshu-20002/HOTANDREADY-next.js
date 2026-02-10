@@ -1,7 +1,8 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView, useViewportScroll, useTransform } from 'framer-motion'
+import { useRef, useEffect, useState } from 'react'
+import Image from 'next/image'
+import { motion, AnimatePresence, useInView, useViewportScroll, useTransform } from 'framer-motion'
 
 const experiences = [
   {
@@ -27,6 +28,21 @@ export function DiningExperienceSection() {
   const { scrollY } = useViewportScroll()
   const y = useTransform(scrollY, [800, 1400], [100, 0])
 
+  const images = [
+    '/assets/exp/exp.jpg',
+    '/assets/exp/exp2.jpg',
+    '/assets/exp/exp3.jpg',
+    '/assets/exp/exp4.jpg',
+  ]
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrent((c) => (c + 1) % images.length)
+    }, 3000)
+    return () => clearInterval(id)
+  }, [])
+
   return (
     <section id="experience" ref={ref} className="relative py-24 bg-black overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
@@ -50,7 +66,25 @@ export function DiningExperienceSection() {
           style={{ y }}
           className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden mb-16"
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-accent/5 to-black" />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={images[current]}
+                alt={`Dining experience ${current + 1}`}
+                fill
+                sizes="(max-width: 1024px) 100vw, 1200px"
+                className="object-cover w-full h-full"
+              />
+            </motion.div>
+          </AnimatePresence>
+
           <motion.div
             initial={{ scale: 1.1, opacity: 0 }}
             animate={isInView ? { scale: 1, opacity: 1 } : { scale: 1.1, opacity: 0 }}

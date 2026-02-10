@@ -19,12 +19,12 @@ export function ChefSection() {
             transition={{ duration: 0.8 }}
             className="relative h-[500px] rounded-2xl overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-black" />
+            {/* <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-black" /> */}
             <motion.div
               initial={{ scale: 1.1 }}
               animate={isInView ? { scale: 1 } : { scale: 1.1 }}
               transition={{ duration: 1 }}
-              className="absolute inset-0 bg-gradient-to-tr from-black via-accent/10 to-transparent"
+              className="absolute inset-0  to-transparent"
             />
             <Image src="/assets/chef.jpg" width={200} height={200} alt="Chef Marcus" className="w-full h-full object-cover object-center" />
           </motion.div>

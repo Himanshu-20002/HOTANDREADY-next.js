@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, easeOut } from 'framer-motion'
 import { ImageSlider } from './ImageSlider'
 
 export function AboutSection() {
@@ -24,7 +24,7 @@ export function AboutSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
+      transition: { duration: 0.8, ease: easeOut },
     },
   }
 
@@ -84,10 +84,10 @@ export function AboutSection() {
               images={[
                 '/assets/aboutimage/about1.jpg',
                 '/assets/aboutimage/about2.jpg',
-                '/assets/aboutimage/about1.jpg',
+                '/assets/aboutimage/about3.jpg',
                 '/assets/aboutimage/about4.jpg',
               ]}
-              interval={3000}
+              interval={5000}
             />
           </motion.div>
         </motion.div>

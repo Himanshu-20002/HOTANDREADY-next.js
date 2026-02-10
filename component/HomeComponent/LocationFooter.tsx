@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react'
+import Image from 'next/image'
 
 export function LocationFooter() {
   const ref = useRef(null)
@@ -29,21 +30,39 @@ export function LocationFooter() {
   }
 
   return (
-    <footer id="contact" ref={ref} className="relative bg-black border-t border-border">
+    <footer id="contact" ref={ref} className="relative bg-black/40 border-t border-border">
+         {/* <div className="absolute inset-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center -z-1"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 800%22%3E%3Crect fill=%22%23111%22 width=%221200%22 height=%22800%22/%3E%3Cdefs%3E%3ClinearGradient id=%22grad%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 style=%22stop-color:%23222;stop-opacity:1%22 /%3E%3Cstop offset=%22100%25%22 style=%22stop-color:%23000;stop-opacity:1%22 /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill=%22url(%23grad)%22 width=%221200%22 height=%22800%22/%3E%3C/svg%3E")',
+          }}
+        />
+      </div> */}
       {/* Location Section */}
       <div className="max-w-6xl mx-auto px-6 py-24">
+        
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 gap-26 mb-16 mx-12"
         >
+       
           {/* Map Placeholder */}
           <motion.div
             variants={itemVariants}
             className="relative h-80 rounded-2xl overflow-hidden border border-border"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-black" />
+            {/* <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-black" /> */}
+
+            <Image
+              src="/assets/loc.jpg"
+              alt="Map Location"
+              fill
+              sizes="(max-width: 1024px) 100vw, 600px"
+              className="object-cover w-full h-full"
+            />
             <motion.div
               initial={{ scale: 1.1 }}
               animate={isInView ? { scale: 1 } : { scale: 1.1 }}
@@ -51,8 +70,8 @@ export function LocationFooter() {
               className="absolute inset-0 bg-gradient-to-tr from-black via-accent/10 to-transparent flex items-center justify-center"
             >
               <div className="text-center">
-                <MapPin className="w-12 h-12 text-accent mx-auto mb-4 opacity-50" />
-                <p className="text-foreground/60 font-serif">Interactive Map</p>
+                <MapPin className="w-12 h-12 text-accent mx-auto mb-4 opacity-100" />
+                {/* <p className="text-foreground/60 font-serif">view Map</p> */}
               </div>
             </motion.div>
           </motion.div>
@@ -60,7 +79,7 @@ export function LocationFooter() {
           {/* Location Info */}
           <motion.div
             variants={containerVariants}
-            className="flex flex-col justify-center space-y-8"
+            className="flex flex-col justify-center space-y-3  mx-22"
           >
             <motion.h2
               variants={itemVariants}
@@ -127,7 +146,7 @@ export function LocationFooter() {
         {/* Hours */}
         <motion.div
           variants={itemVariants}
-          className="bg-card border border-border rounded-2xl p-8 mb-16"
+          className=" bg-gradient-to-b from-accent/10 to-black border border-border rounded-2xl p-8 mb-16"
         >
           <h3 className="text-2xl font-display font-bold text-white mb-6">
             Hours of Operation
@@ -155,10 +174,10 @@ export function LocationFooter() {
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
-        className="border-t border-border bg-black/50"
+        className="border-t border-border bg-gradient-to-b from-accent/20 to-black"
       >
-        <div className="max-w-6xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div className="max-w-6xl mx-auto px-6 py-9">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-1">
             {/* Brand */}
             <motion.div variants={itemVariants}>
               <h4 className="text-white font-display text-lg tracking-wider mb-4">
@@ -216,7 +235,7 @@ export function LocationFooter() {
           {/* Bottom Bar */}
           <motion.div
             variants={itemVariants}
-            className="border-t border-border pt-8 text-center text-foreground/50 text-sm font-serif"
+            className=" mt-13 text-center text-foreground/30 underline text-sm font-serif"
           >
             <p>
               &copy; {new Date().getFullYear()} Aurora. All rights reserved. | Design & Culinary Excellence

@@ -21,7 +21,7 @@ export function FloatingLogo() {
       style={{ y, scale, textShadow }}
       className="
         fixed
-        top-8
+        top-6
         left-1/2
         -translate-x-1/2
         z-[60]

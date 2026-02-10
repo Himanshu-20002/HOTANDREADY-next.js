@@ -281,3 +281,11 @@ p, a, span {
 .animate-mask-reveal.in-view {
   animation: maskReveal 1.2s ease-out forwards;
 }
+.plate {
+  will-change: transform;
+  transform-origin: center;
+}
+.diverse-dish-image {
+  will-change: transform;
+  transform-origin: center;
+}

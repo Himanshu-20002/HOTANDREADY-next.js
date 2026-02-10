@@ -5,7 +5,7 @@ import { IntroAnimation } from "@/component/IntroAnimation";
 
 import { Navigation } from "./Navigation";
 import { FloatingLogo } from "./FloatingLogo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AboutSection } from "./HomeComponent/AboutSection";
 import { MenuSection } from "./HomeComponent/MenuSection";
 import { ChefSection } from "./HomeComponent/ChefSection";
@@ -16,9 +16,20 @@ import { ReservationSection } from "./HomeComponent/ReservationSection";
 import { LocationFooter } from "./HomeComponent/LocationFooter";
 import { ScrollToTop } from "./HomeComponent/ScrollToTop";
 import { HeroSection } from "./HomeComponent/HeroSection";
-
+import Lenis from 'lenis'
 
 export default function Home() {
+    useEffect(() => {
+    const lenis = new Lenis({
+      autoRaf: true,
+      smoothWheel: true,
+      duration: 1.2,
+    })
+     return () => {
+      lenis.destroy()
+    }
+  }, [])
+  
     const [isIntroComplete, setIsIntroComplete] = useState(false);
 
     return (

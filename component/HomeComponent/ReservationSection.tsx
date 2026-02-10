@@ -69,7 +69,7 @@ export function ReservationSection() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="bg-card border border-border rounded-lg p-6"
+                className="bg-gradient-to-b from-accent/10 to-black border border-border rounded-lg p-6"
               >
                 <p className="text-accent text-sm tracking-widest font-display mb-2">
                   {info.label}
