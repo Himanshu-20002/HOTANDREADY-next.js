@@ -1,14 +1,14 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView, easeOut } from 'framer-motion'
+import { motion, useInView, easeOut, Variants } from 'framer-motion'
 import { ImageSlider } from './ImageSlider'
 
 export function AboutSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -19,7 +19,7 @@ export function AboutSection() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,

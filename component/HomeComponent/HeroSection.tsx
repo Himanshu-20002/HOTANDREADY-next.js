@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { motion, useViewportScroll, useTransform, useMotionValue } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion'
 import Image from 'next/image'
 
 import { gsap } from "gsap";
@@ -15,7 +15,7 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ isLoadingComplete }: HeroSectionProps) {
-  const { scrollY } = useViewportScroll()
+  const { scrollY } = useScroll()
   const scale = useTransform(scrollY, [0, 500], [1, 0.85])
   const opacity = useTransform(scrollY, [0, 400], [1, 0.6])
   const y = useTransform(scrollY, [0, 500], [0, 100])
@@ -32,7 +32,7 @@ export function HeroSection({ isLoadingComplete }: HeroSectionProps) {
           start: 'top bottom',
           end: 'bottom top',
           scrub: true,
-      
+
         },
         ease: 'none',
       })
@@ -43,7 +43,7 @@ export function HeroSection({ isLoadingComplete }: HeroSectionProps) {
           start: 'top bottom',
           end: 'bottom top',
           scrub: true,
-       
+
         },
         ease: 'none',
       })
@@ -62,15 +62,15 @@ export function HeroSection({ isLoadingComplete }: HeroSectionProps) {
 
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
-    <div
-      className="absolute inset-0 bg-cover bg-center"
-      style={{
-        backgroundImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 800%22%3E%3Crect fill=%22%23111%22 width=%221200%22 height=%22800%22/%3E%3Cdefs%3E%3ClinearGradient id=%22grad%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 style=%22stop-color:%23222;stop-opacity:1%22 /%3E%3Cstop offset=%22100%25%22 style=%22stop-color:%23000;stop-opacity:1%22 /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill=%22url(%23grad)%22 width=%221200%22 height=%22800%22/%3E%3C/svg%3E")',
-      }}
-    />
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 800%22%3E%3Crect fill=%22%23111%22 width=%221200%22 height=%22800%22/%3E%3Cdefs%3E%3ClinearGradient id=%22grad%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 style=%22stop-color:%23222;stop-opacity:1%22 /%3E%3Cstop offset=%22100%25%22 style=%22stop-color:%23000;stop-opacity:1%22 /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill=%22url(%23grad)%22 width=%221200%22 height=%22800%22/%3E%3C/svg%3E")',
+          }}
+        />
       </div>
       <div className="absolute inset-0 overflow-hidden">
-        
+
         <CurvedLoop
           marqueeText="Diverse ✦  Cuisine ✦ With ✦ Signature  ✦ Chef ✦"
           speed={1}
@@ -78,10 +78,10 @@ export function HeroSection({ isLoadingComplete }: HeroSectionProps) {
           direction="right"
           className="custom-text-style"
         />
-        
+
       </div>
       <div className="absolute   inset-0 pointer-events-none">
-         <Image alt='dish3' src='/assets/Remove-bg-3.png' width={250} height={200} className="hero-image2 mx-140 max-lg:mx-20 mb-6 sm:mb-8" />
+        <Image alt='dish3' src='/assets/Remove-bg-3.png' width={250} height={200} className="hero-image2 mx-140 max-lg:mx-20 mb-6 sm:mb-8" />
         <Image alt='dish4' src='/assets/Remove-bg-4.png' width={150} height={100} className="hero-image2 mx-240 mb-9 max-lg:mx-76 sm:mb-8" />
       </div>
 
@@ -113,7 +113,7 @@ export function HeroSection({ isLoadingComplete }: HeroSectionProps) {
 
         <Image alt='dish1' src='/assets/Remove-bg-1.png' width={300} height={100} className="hero-image mx-auto mb-2  sm:mb-2" />
         <Image alt='dish2' src='/assets/Remove-bg-2.png' width={150} height={50} className="hero-image2 -mx-70 mb-6 mx-6 sm:mb-8" />
-       
+
 
         {/* Scroll Indicator */}
         <motion.div
@@ -124,7 +124,7 @@ export function HeroSection({ isLoadingComplete }: HeroSectionProps) {
         >
           <span className="text-md text-foreground/40  text-accent tracking-widest">^</span>
           <span className="text-sm text-foreground/30  text-accent tracking-widest">SCROLL TO EXPLORE</span>
-        
+
         </motion.div>
       </motion.div>
 

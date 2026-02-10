@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, Variants } from 'framer-motion'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -31,19 +31,19 @@ const dishes = [
   {
     name: 'Garden\'s Gift',
     description: 'Heirloom vegetables with charred broccolini and herb emulsion',
-    image:'/assets/sig1.jpg',
+    image: '/assets/sig1.jpg',
     price: '₹ 99',
   },
   {
     name: 'Delicate Balance',
     description: 'Pan-seared halibut with champagne foam and caviar pearls',
-    image:'/assets/sig2.jpg',
-        price: '₹ 99',
+    image: '/assets/sig2.jpg',
+    price: '₹ 99',
   },
   {
     name: 'Chef\'s Curiosity',
     description: 'Seasonal selection inspired by global culinary traditions',
-    image:'/assets/sig3.jpg',
+    image: '/assets/sig3.jpg',
     price: '₹ 69',
   },
 ]
@@ -52,65 +52,65 @@ export function MenuSection() {
   const ref = useRef(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
-const plateRef = useRef<HTMLImageElement>(null)
-useEffect(() => {
-  if (!containerRef.current) return
+  const plateRef = useRef<HTMLImageElement>(null)
+  useEffect(() => {
+    if (!containerRef.current) return
 
-  const lenis = new Lenis({
-    autoRaf: true,
-    smoothWheel: true,
-    lerp: 0.07, // light, premium smooth
-  })
+    const lenis = new Lenis({
+      autoRaf: true,
+      smoothWheel: true,
+      lerp: 0.07, // light, premium smooth
+    })
 
-  // CONNECT Lenis → ScrollTrigger
-  lenis.on("scroll", ScrollTrigger.update)
+    // CONNECT Lenis → ScrollTrigger
+    lenis.on("scroll", ScrollTrigger.update)
 
-  ScrollTrigger.scrollerProxy(document.body, {
-    scrollTop(value) {
-      if (arguments.length) {
-        // 🚫 DO NOT use immediate: true
-        if (typeof value === 'number') {
-          lenis.scrollTo(value)
+    ScrollTrigger.scrollerProxy(document.body, {
+      scrollTop(value) {
+        if (arguments.length) {
+          // 🚫 DO NOT use immediate: true
+          if (typeof value === 'number') {
+            lenis.scrollTo(value)
+          }
+        } else {
+          return lenis.scroll
         }
-      } else {
-        return lenis.scroll
-      }
-    },
-    getBoundingClientRect() {
-      return {
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
-      }
-    },
-  })
-
-  ScrollTrigger.refresh()
-
-  const ctx = gsap.context(() => {
-    gsap.to(".diverse-dish-image", {
-      rotation: 50,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".diverse-dish-image",
-        start: "top bottom",
-        end: "top top",
-
-        // ✅ THIS is the magic
-        scrub: 7, // smooth catch-up after fast scroll
-
-  
+      },
+      getBoundingClientRect() {
+        return {
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        }
       },
     })
-  }, containerRef)
 
-  return () => {
-    ctx.revert()
-    lenis.destroy()
-  }
-}, [])
-  const containerVariants = {
+    ScrollTrigger.refresh()
+
+    const ctx = gsap.context(() => {
+      gsap.to(".diverse-dish-image", {
+        rotation: 50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".diverse-dish-image",
+          start: "top bottom",
+          end: "top top",
+
+          // ✅ THIS is the magic
+          scrub: 7, // smooth catch-up after fast scroll
+
+
+        },
+      })
+    }, containerRef)
+
+    return () => {
+      ctx.revert()
+      lenis.destroy()
+    }
+  }, [])
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -121,7 +121,7 @@ useEffect(() => {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,

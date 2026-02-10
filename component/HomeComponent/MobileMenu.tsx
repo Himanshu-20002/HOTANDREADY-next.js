@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, Variants } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
 interface MobileMenuProps {
@@ -13,7 +13,7 @@ export function MobileMenu({ restaurantName }: MobileMenuProps) {
 
   const navItems = ['Menu', 'Experience', 'Reservations', 'Contact']
 
-  const menuVariants = {
+  const menuVariants: Variants = {
     closed: {
       opacity: 0,
       x: 300,
@@ -24,9 +24,9 @@ export function MobileMenu({ restaurantName }: MobileMenuProps) {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     closed: { opacity: 0, x: 20 },
-    open: (i) => ({
+    open: (i: number) => ({
       opacity: 1,
       x: 0,
       transition: {

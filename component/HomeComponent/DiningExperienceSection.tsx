@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence, useInView, useViewportScroll, useTransform } from 'framer-motion'
+import { motion, AnimatePresence, useInView, useScroll, useTransform, Variants } from 'framer-motion'
 
 const experiences = [
   {
@@ -25,7 +25,7 @@ const experiences = [
 export function DiningExperienceSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
-  const { scrollY } = useViewportScroll()
+  const { scrollY } = useScroll()
   const y = useTransform(scrollY, [800, 1400], [100, 0])
 
   const images = [
@@ -104,7 +104,7 @@ export function DiningExperienceSection() {
                 delayChildren: 0.1,
               },
             },
-          }}
+          } as Variants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20"
@@ -119,7 +119,7 @@ export function DiningExperienceSection() {
                   y: 0,
                   transition: { duration: 0.6, ease: 'easeOut' },
                 },
-              }}
+              } as Variants}
               className="text-center"
             >
               <motion.div

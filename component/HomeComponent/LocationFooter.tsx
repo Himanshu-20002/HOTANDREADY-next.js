@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, Variants } from 'framer-motion'
 import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react'
 import Image from 'next/image'
 
@@ -9,7 +9,7 @@ export function LocationFooter() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -20,7 +20,7 @@ export function LocationFooter() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -31,7 +31,7 @@ export function LocationFooter() {
 
   return (
     <footer id="contact" ref={ref} className="relative bg-black/40 border-t border-border">
-         {/* <div className="absolute inset-0">
+      {/* <div className="absolute inset-0">
         <div
           className="absolute inset-0 bg-cover bg-center -z-1"
           style={{
@@ -41,14 +41,14 @@ export function LocationFooter() {
       </div> */}
       {/* Location Section */}
       <div className="max-w-6xl mx-auto px-6 py-24">
-        
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           className="grid grid-cols-1 md:grid-cols-2 gap-26 mb-16 mx-12"
         >
-       
+
           {/* Map Placeholder */}
           <motion.div
             variants={itemVariants}
