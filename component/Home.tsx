@@ -33,8 +33,6 @@ export default function Home() {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      smoothTouch: true,
-      touchMultiplier: 1.5,
       infinite: false,
     })
 
