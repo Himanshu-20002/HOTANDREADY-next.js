@@ -31,28 +31,20 @@ export function LocationFooter() {
 
   return (
     <footer id="contact" ref={ref} className="relative bg-black/40 border-t border-border">
-      {/* <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center -z-1"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 800%22%3E%3Crect fill=%22%23111%22 width=%221200%22 height=%22800%22/%3E%3Cdefs%3E%3ClinearGradient id=%22grad%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 style=%22stop-color:%23222;stop-opacity:1%22 /%3E%3Cstop offset=%22100%25%22 style=%22stop-color:%23000;stop-opacity:1%22 /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill=%22url(%23grad)%22 width=%221200%22 height=%22800%22/%3E%3C/svg%3E")',
-          }}
-        />
-      </div> */}
-      {/* Location Section */}
+
       <div className="max-w-6xl mx-auto px-6 py-24">
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-2 gap-26 mb-16 mx-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 mb-16"
         >
 
           {/* Map Placeholder */}
           <motion.div
             variants={itemVariants}
-            className="relative h-80 rounded-2xl overflow-hidden border border-border"
+            className="relative h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden border border-border"
           >
             {/* <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-black" /> */}
 
@@ -79,7 +71,7 @@ export function LocationFooter() {
           {/* Location Info */}
           <motion.div
             variants={containerVariants}
-            className="flex flex-col justify-center space-y-3  mx-22"
+            className="flex flex-col justify-center space-y-2 md:space-y-4"
           >
             <motion.h2
               variants={itemVariants}
@@ -99,10 +91,10 @@ export function LocationFooter() {
               <MapPin className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
               <div>
                 <p className="text-white font-serif text-lg">
-                  123 Culinary Lane
+                  123 Park Street
                 </p>
                 <p className="text-foreground/60 font-serif">
-                  San Francisco, CA 94105
+                  Kolkata, West Bengal 700001
                 </p>
               </div>
             </motion.a>
@@ -116,7 +108,7 @@ export function LocationFooter() {
               <Phone className="w-6 h-6 text-accent flex-shrink-0" />
               <div>
                 <p className="text-white font-serif text-lg">
-                  +1 (415) 555-1234
+                  +91 9876543210
                 </p>
                 <p className="text-foreground/60 text-sm">
                   Call for reservations

@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence, useInView, useScroll, useTransform, Variants } from 'framer-motion'
+import { motion, AnimatePresence, useInView, Variants } from 'framer-motion'
 
 const experiences = [
   {
@@ -22,11 +22,15 @@ const experiences = [
   },
 ]
 
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+// Removed redundant registration
+
 export function DiningExperienceSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
-  const { scrollY } = useScroll()
-  const y = useTransform(scrollY, [800, 1400], [100, 0])
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const parallaxRef = useRef<HTMLDivElement | null>(null)
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 })
 
   const images = [
     '/assets/exp/exp.jpg',
@@ -37,14 +41,32 @@ export function DiningExperienceSection() {
   const [current, setCurrent] = useState(0)
 
   useEffect(() => {
+    if (!containerRef.current) return
+
+    const ctx = gsap.context(() => {
+      gsap.to(parallaxRef.current, {
+        y: -100,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        }
+      })
+    }, containerRef)
+
     const id = setInterval(() => {
       setCurrent((c) => (c + 1) % images.length)
     }, 3000)
-    return () => clearInterval(id)
+
+    return () => {
+      ctx.revert()
+      clearInterval(id)
+    }
   }, [])
 
   return (
-    <section id="experience" ref={ref} className="relative py-24 bg-black overflow-hidden">
+    <section id="experience" ref={containerRef} className="relative py-24 bg-black overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         {/* Section Title */}
         <motion.div
@@ -53,7 +75,7 @@ export function DiningExperienceSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-4">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-4">
             The Experience
           </h2>
           <p className="text-foreground/60 font-serif text-lg">
@@ -62,8 +84,8 @@ export function DiningExperienceSection() {
         </motion.div>
 
         {/* Main Experience Image with Parallax */}
-        <motion.div
-          style={{ y }}
+        <div
+          ref={parallaxRef}
           className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden mb-16"
         >
           <AnimatePresence mode="wait">
@@ -91,7 +113,7 @@ export function DiningExperienceSection() {
             transition={{ duration: 1 }}
             className="absolute inset-0 bg-gradient-to-tr from-black via-accent/10 to-transparent"
           />
-        </motion.div>
+        </div>
 
         {/* Features Grid */}
         <motion.div

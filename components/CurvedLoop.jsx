@@ -31,8 +31,8 @@ const CurvedLoop = ({
   const textLength = spacing;
   const totalText = textLength
     ? Array(Math.ceil(1800 / textLength) + 2)
-        .fill(text)
-        .join('')
+      .fill(text)
+      .join('')
     : text;
   const ready = spacing > 0;
 

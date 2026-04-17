@@ -30,9 +30,9 @@ export function ReservationSection() {
   return (
     <section id="reservations" ref={ref} className="relative py-32 bg-black overflow-hidden">
       {/* Background Accent */}
-      <div className="absolute inset-0 opacity-5">
+      {/* <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
-      </div>
+      </div> */}
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <motion.div
@@ -43,7 +43,7 @@ export function ReservationSection() {
           {/* Main Heading */}
           <motion.h2
             variants={itemVariants}
-            className="text-6xl md:text-7xl font-display font-bold text-white mb-6"
+            className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-6"
           >
             Ready for the Experience?
           </motion.h2>

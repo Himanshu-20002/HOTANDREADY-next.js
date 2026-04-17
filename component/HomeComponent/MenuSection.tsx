@@ -5,23 +5,22 @@ import { motion, useInView, Variants } from 'framer-motion'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Lenis from 'lenis'
-gsap.registerPlugin(ScrollTrigger)
+// Removed redundant registration
 
 const diverseCuisineDishes = [
   {
     name: 'Angel Delight',
-    description: 'Effortlessly organize and prioritize your tasks.',
+    description: 'A ethereal blend of cloud-like mousse and seasonal berries.',
     image: '/assets/dish1.png',
   },
   {
     name: 'Bird\'s Custard',
-    description: 'Effortlessly organize and prioritize your tasks.',
+    description: 'Velvety smooth vanilla cream with a hint of nutmeg.',
     image: '/assets/dish2.png',
   },
   {
     name: 'Bompas & Parr',
-    description: 'Effortlessly organize and prioritize your tasks.',
+    description: 'Experimental jelly creations that challenge the senses.',
     image: '/assets/dish3.png',
   },
 ]
@@ -56,58 +55,27 @@ export function MenuSection() {
   useEffect(() => {
     if (!containerRef.current) return
 
-    const lenis = new Lenis({
-      autoRaf: true,
-      smoothWheel: true,
-      lerp: 0.07, // light, premium smooth
-    })
-
-    // CONNECT Lenis → ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update)
-
-    ScrollTrigger.scrollerProxy(document.body, {
-      scrollTop(value) {
-        if (arguments.length) {
-          // 🚫 DO NOT use immediate: true
-          if (typeof value === 'number') {
-            lenis.scrollTo(value)
-          }
-        } else {
-          return lenis.scroll
-        }
-      },
-      getBoundingClientRect() {
-        return {
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-        }
-      },
-    })
-
-    ScrollTrigger.refresh()
-
     const ctx = gsap.context(() => {
-      gsap.to(".diverse-dish-image", {
-        rotation: 50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".diverse-dish-image",
-          start: "top bottom",
-          end: "top top",
-
-          // ✅ THIS is the magic
-          scrub: 7, // smooth catch-up after fast scroll
-
-
-        },
+      const images = gsap.utils.toArray<HTMLElement>(".diverse-dish-image")
+      
+      images.forEach((img) => {
+        gsap.to(img, {
+          rotation: 45,
+          ease: "none",
+          scrollTrigger: {
+            trigger: img,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.5,
+            fastScrollEnd: true,
+            preventOverlaps: true,
+          },
+        })
       })
     }, containerRef)
 
     return () => {
       ctx.revert()
-      lenis.destroy()
     }
   }, [])
   const containerVariants: Variants = {
@@ -141,11 +109,11 @@ export function MenuSection() {
             transition={{ duration: 0.6 }}
             className="mb-20 text-center"
           >
-            <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-4">
               Diverse Cuisine
             </h2>
             <p className="text-foreground/60 font-serif text-lg max-w-2xl mx-auto">
-              Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics
+              Our menu is a symphony of local ingredients and global inspiration, meticulously crafted to delight every palate and celebrate the art of dining.
             </p>
           </motion.div>
 
@@ -168,6 +136,7 @@ export function MenuSection() {
                     alt={dish.name}
                     width={200}
                     height={200}
+                    priority={index === 0}
                     className="diverse-dish-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
@@ -192,7 +161,7 @@ export function MenuSection() {
             transition={{ duration: 0.6 }}
             className="mb-16 text-center"
           >
-            <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-4">
               Signature Dishes
             </h2>
             <p className="text-foreground/60 font-serif text-lg">
@@ -223,6 +192,7 @@ export function MenuSection() {
                       src={dish.image}
                       alt={dish.name}
                       fill
+                      priority={index === 0}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                     />

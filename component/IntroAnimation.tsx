@@ -39,10 +39,10 @@ export function IntroAnimation({ onComplete }: IntroAnimationProps) {
               className="absolute inset-y-0 left-0 bg-white/60"
               initial={{ width: "0%" }}
               animate={{ width: "100%" }}
-              transition={{ 
-                duration: 2.5, 
+              transition={{
+                duration: 2.5,
                 ease: [0.45, 0, 0.55, 1],
-                delay: 0.5 
+                delay: 0.5
               }}
               onAnimationComplete={() => setIsFinished(true)}
             />

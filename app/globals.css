@@ -5,19 +5,26 @@
 
 :root {
   /* Luxury dark palette */
-  --background: oklch(0.08 0 0); /* Deep black */
-  --foreground: oklch(0.95 0 0); /* Near white */
-  --card: oklch(0.12 0 0); /* Dark charcoal */
+  --background: oklch(0.08 0 0);
+  /* Deep black */
+  --foreground: oklch(0.95 0 0);
+  /* Near white */
+  --card: oklch(0.12 0 0);
+  /* Dark charcoal */
   --card-foreground: oklch(0.95 0 0);
   --popover: oklch(0.12 0 0);
   --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.95 0 0); /* Off-white */
+  --primary: oklch(0.95 0 0);
+  /* Off-white */
   --primary-foreground: oklch(0.08 0 0);
-  --secondary: oklch(0.2 0 0); /* Charcoal */
+  --secondary: oklch(0.2 0 0);
+  /* Charcoal */
   --secondary-foreground: oklch(0.95 0 0);
-  --muted: oklch(0.3 0 0); /* Medium gray */
+  --muted: oklch(0.3 0 0);
+  /* Medium gray */
   --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.68 0.14 42.3); /* Warm gold */
+  --accent: oklch(0.68 0.14 42.3);
+  /* Warm gold */
   --accent-foreground: oklch(0.08 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.95 0 0);
@@ -121,6 +128,23 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    /* For sticky header offset */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+  }
+
+  /* Chrome, Safari and Opera */
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
+  section {
+    scroll-margin-top: 5rem;
+    content-visibility: auto;
+    contain-intrinsic-size: 100vh;
   }
 
   * {
@@ -133,11 +157,18 @@
 }
 
 /* Typography overrides for luxury aesthetic */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   @apply font-display;
 }
 
-p, a, span {
+p,
+a,
+span {
   @apply font-serif;
 }
 
@@ -147,6 +178,7 @@ p, a, span {
     opacity: 0;
     transform: translateY(60px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -158,6 +190,7 @@ p, a, span {
     opacity: 0;
     transform: translateY(-60px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -169,6 +202,7 @@ p, a, span {
     opacity: 0;
     transform: translateX(60px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -180,6 +214,7 @@ p, a, span {
     opacity: 0;
     transform: translateX(-60px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -191,6 +226,7 @@ p, a, span {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -202,6 +238,7 @@ p, a, span {
     clip-path: inset(0 100% 0 0);
     opacity: 0;
   }
+
   to {
     clip-path: inset(0 0 0 0);
     opacity: 1;
@@ -213,6 +250,7 @@ p, a, span {
     -webkit-mask-image: linear-gradient(to right, transparent, transparent);
     mask-image: linear-gradient(to right, transparent, transparent);
   }
+
   to {
     -webkit-mask-image: linear-gradient(to right, transparent, black);
     mask-image: linear-gradient(to right, transparent, black);
@@ -281,11 +319,62 @@ p, a, span {
 .animate-mask-reveal.in-view {
   animation: maskReveal 1.2s ease-out forwards;
 }
+
 .plate {
   will-change: transform;
   transform-origin: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
+
 .diverse-dish-image {
   will-change: transform;
   transform-origin: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Hardware acceleration for scroll containers */
+.section-animate {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Base typography scaling for better mobile experience */
+@layer base {
+  h1 {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-8xl;
+  }
+  h2 {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
+  }
+}
+
+/* Custom spacing utilities if missing or breaking */
+@utility mx-140 {
+  margin-left: clamp(2rem, 10vw, 35rem);
+  margin-right: clamp(2rem, 10vw, 35rem);
+}
+
+@utility mx-240 {
+  margin-left: clamp(2rem, 15vw, 60rem);
+  margin-right: clamp(2rem, 15vw, 60rem);
+}
+
+@utility -mx-70 {
+  margin-left: clamp(-17.5rem, -5vw, -2rem);
+  margin-right: clamp(-17.5rem, -5vw, -2rem);
+}
+
+@utility gap-26 {
+  gap: clamp(1rem, 5vw, 6.5rem);
+}
+
+@utility my-7 {
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
 }

@@ -17,7 +17,7 @@ export function ChefSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.8 }}
-            className="relative h-[500px] rounded-2xl overflow-hidden"
+            className="relative h-80 sm:h-96 md:h-[500px] rounded-2xl overflow-hidden"
           >
             {/* <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-black" /> */}
             <motion.div
@@ -43,7 +43,7 @@ export function ChefSection() {
               <span className="text-accent text-sm tracking-widest font-display">
                 THE VISIONARY
               </span>
-              <h2 className="text-5xl md:text-6xl font-display font-bold text-white mt-4 mb-8">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mt-4 mb-4 md:mb-8">
                 Chef Marcus
               </h2>
             </motion.div>

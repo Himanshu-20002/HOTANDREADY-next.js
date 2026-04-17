@@ -40,7 +40,7 @@ export function AboutSection() {
           {/* Left Side - Content */}
           <div>
             <motion.div variants={itemVariants}>
-              <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-6">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white mb-6">
                 The Story
               </h2>
             </motion.div>
